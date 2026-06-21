@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
+const database_1 = require("./config/database");
 const env_1 = require("./env");
 require("./models/activity");
 require("./models/leaderboard");
@@ -27,7 +27,7 @@ app.use('/api/leaderboard', leaderboard_1.default);
 app.use('/api/workouts', workouts_1.default);
 const startServer = async () => {
     try {
-        await mongoose_1.default.connect(env_1.MONGODB_URI);
+        await (0, database_1.connectDatabase)();
         app.listen(env_1.PORT, () => {
             console.log(`OctoFit backend listening on ${env_1.BASE_URL}`);
         });

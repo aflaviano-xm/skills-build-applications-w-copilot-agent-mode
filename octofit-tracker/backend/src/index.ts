@@ -1,7 +1,7 @@
 import express from 'express'
-import mongoose from 'mongoose'
 
-import { BASE_URL, MONGODB_URI, PORT } from './env'
+import { connectDatabase } from './config/database'
+import { BASE_URL, PORT } from './env'
 import './models/activity'
 import './models/leaderboard'
 import './models/team'
@@ -26,7 +26,7 @@ app.use('/api/workouts', workoutsRouter)
 
 const startServer = async () => {
   try {
-    await mongoose.connect(MONGODB_URI)
+    await connectDatabase()
     app.listen(PORT, () => {
       console.log(`OctoFit backend listening on ${BASE_URL}`)
     })
